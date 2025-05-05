@@ -25,12 +25,12 @@
   Foundation,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "wesnoth";
   version = "1.18.4";
 
   src = fetchFromGitHub {
-    rev = version;
+    tag = finalAttrs.version;
     owner = "wesnoth";
     repo = "wesnoth";
     hash = "sha256-c3BoTFnSUqtp71QeSCsC2teVuzsQwV8hOJtIcZdP+1E=";
@@ -87,4 +87,4 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ abbradar ];
     platforms = platforms.unix;
   };
-}
+})

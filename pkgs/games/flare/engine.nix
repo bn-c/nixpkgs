@@ -10,14 +10,14 @@
   Cocoa,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "flare-engine";
   version = "1.14";
 
   src = fetchFromGitHub {
     owner = "flareteam";
-    repo = pname;
-    rev = "v${version}";
+    repo = "flare-engine";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-DIzfTqwZJ8NAPB/TWzvPjepHb7hIbIr+Kk+doXJmpLc=";
   };
 
@@ -41,4 +41,4 @@ stdenv.mkDerivation rec {
     license = [ licenses.gpl3 ];
     platforms = platforms.unix;
   };
-}
+})

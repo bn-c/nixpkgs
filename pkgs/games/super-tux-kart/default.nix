@@ -68,7 +68,7 @@ let
     "mojoal"
   ];
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
 
   pname = "supertuxkart";
   version = "1.4";
@@ -76,7 +76,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "supertuxkart";
     repo = "stk-code";
-    rev = version;
+    tag = finalAttrs.version;
     hash = "sha256-gqdaVvgNfCN40ZO/9y8+vTeIJPSq6udKxYZ/MAi4ZMM=";
   };
 
@@ -171,4 +171,4 @@ stdenv.mkDerivation rec {
     platforms = with platforms; unix;
     changelog = "https://github.com/supertuxkart/stk-code/blob/${version}/CHANGELOG.md";
   };
-}
+})

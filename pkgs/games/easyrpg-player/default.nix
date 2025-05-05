@@ -38,14 +38,14 @@
   AudioToolbox,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "easyrpg-player";
   version = "0.8";
 
   src = fetchFromGitHub {
     owner = "EasyRPG";
     repo = "Player";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-t0sa9ONVVfsiTy+us06vU2bMa4QmmQeYxU395g0WS6w=";
   };
 
@@ -106,7 +106,7 @@ stdenv.mkDerivation rec {
     ];
 
   cmakeFlags = [
-    "-DPLAYER_ENABLE_TESTS=${lib.boolToString doCheck}"
+    "-DPLAYER_ENABLE_TESTS=${lib.boolToString finalAttrs.doCheck}"
   ];
 
   makeFlags = [
@@ -114,7 +114,7 @@ stdenv.mkDerivation rec {
     "man"
   ];
 
-  buildFlags = lib.optionals doCheck [
+  buildFlags = lib.optionals finalAttrs.doCheck [
     "test_runner_player"
   ];
 
@@ -136,4 +136,4 @@ stdenv.mkDerivation rec {
     platforms = platforms.all;
     mainProgram = lib.optionalString stdenv.hostPlatform.isDarwin "EasyRPG Player";
   };
-}
+})
